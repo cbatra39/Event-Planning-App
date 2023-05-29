@@ -83,4 +83,4 @@ production:
   <<: *default
   database: EventPlanning_production
   username: EventPlanning
-  password: <%= ENV["EVENTPLANNINGADMIN_DATABASE_PASSWORD"] %>
+  password: <%= ENV["EVENTPLANNING_DATABASE_PASSWORD"] %>
