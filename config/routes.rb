@@ -13,9 +13,9 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  post '/password_reset/send_otp', to: 'password_reset#send_otp'
-  post '/password_reset/verify_otp', to: 'password_reset#verify_otp'
-  post '/password_reset/reset_password', to: 'password_reset#reset_password' 
+  post '/send_otp', to: 'password_reset#send_otp'
+  post '/verify_otp', to: 'password_reset#verify_otp'
+  post '/password_reset', to: 'password_reset#reset_password' 
   resources :profiles do
     collection do
     put :update
