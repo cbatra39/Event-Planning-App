@@ -4,7 +4,25 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  devise_scope :user do
+    authenticated :user do
+      root 'admin#index', as: :authenticated_root
+    end
   
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+  post '/password_reset/send_otp', to: 'password_reset#send_otp'
+  post '/password_reset/verify_otp', to: 'password_reset#verify_otp'
+  post '/password_reset/reset_password', to: 'password_reset#reset_password' 
+  resources :profiles do
+    collection do
+    put :update
+    delete :destroy
+    get :show
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
