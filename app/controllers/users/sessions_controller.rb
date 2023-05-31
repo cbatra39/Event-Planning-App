@@ -26,4 +26,8 @@ class Users::SessionsController < Devise::SessionsController
       }, status: :unauthorized
     end
   end
+
+  def sign_in_params
+    params.permit(:email, :password)
+  end
 end
