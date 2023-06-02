@@ -6,9 +6,9 @@ class CreateProfiles < ActiveRecord::Migration[7.0]
       t.date :dob
       t.string :phone_number
       t.string :address
-      t.references :user, foreign_key: { to_table: :users }, index: true
-
+      t.references :user, foreign_key: { to_table: :users }, index: true 
       t.timestamps
     end
+    add_foreign_key :profiles, :users, on_delete: :cascade
   end
 end

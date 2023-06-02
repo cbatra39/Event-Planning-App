@@ -4,15 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  devise_scope :user do
-    authenticated :user do
-      root 'admin#index', as: :authenticated_root
-    end
   
-    unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
-    end
-  end
   post '/send_otp', to: 'password_reset#send_otp'
   post '/verify_otp', to: 'password_reset#verify_otp'
   post '/password_reset', to: 'password_reset#reset_password' 
@@ -27,6 +19,30 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-   get '/dashboard', to: 'admin#dashboard', as: :dashboard
-   get '/adminprofile', to: 'admin#adminprofile', as: :adminprofile
+
+  #Admin Panel Routes
+  devise_scope :user do
+    authenticated :user do
+      root 'admin/home#dashboard', as: :authenticated_root
+    end
+  
+    unauthenticated do
+      root 'admin/auth/sessions#new', as: :unauthenticated_root
+    end
+  end
+
+  namespace :admin do
+    get 'login', to: 'auth/sessions#new', as: :login
+    post 'login', to: 'auth/sessions#create', as: :post_login
+    delete 'logout', to: 'auth/sessions#destroy', as: :logout
+    get '/profile', to: 'home#profile', as: :profile
+    get 'forgot-password', to: 'auth/passwords#new', as: :forgot_password
+    post 'forgot/send_mail',to: "auth/passwords#passwordreset", as: :send_reset_instructions
+    resources :users, except: [:new, :create,:edit,:update] do
+      member do
+        patch 'update_status'
+      end
+    end
+
+  end
 end

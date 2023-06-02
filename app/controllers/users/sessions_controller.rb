@@ -27,7 +27,4 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  def sign_in_params
-    params.permit(:email, :password)
-  end
 end

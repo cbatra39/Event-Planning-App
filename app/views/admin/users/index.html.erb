@@ -1,0 +1,63 @@
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Manage Users</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">User Management</li>
+          <li class="breadcrumb-item active">Users</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h5 class="card-title">Users <span>| List</span></h5>
+
+               <table class="table table-borderless datatable" >
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th> 
+                    <th scope="col" >Email</th>
+                    <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @users.each do |u| %>
+                    <tr>
+                    <% if u.profile.present? %>
+                    <td><a href="<%= admin_user_path(u) %>"><%= u.profile.first_name %></a></td>                    
+                    <% else %>
+                    <td>User</td>
+                    <% end %>
+                    <td><%= u.email %></td>
+                    <% if u.status == "inactive" %>
+                    <td><span class="badge bg-danger"><%= u.status %></span></td>
+                    <% else %>
+                    <td><span class="badge bg-success"><%= u.status %></span></td>
+                    <% end %>
+                    
+
+                    </tr>
+                    <% end %>
+                </tbody>
+                </table>
+
+
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>

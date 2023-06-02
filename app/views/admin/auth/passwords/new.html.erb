@@ -17,12 +17,10 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your email & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Forgot your password?</h5>
                   </div>
-                  <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "row g-3 needs-validation", novalidate: true) do |f| %>
-           
-
+                  <%#= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },  class: "row g-3 needs-validation", novalidate: true) do |f| %> 
+                    <%= form_with url: admin_send_reset_instructions_path , method: "post", class: "row g-3 needs-validation" do |f| %>
                     <div class="col-12">
                         <%= f.label :email, "Email",for:"yourUsername", class: "form-label" %>                      
                         <div class="input-group has-validation">
@@ -31,29 +29,15 @@
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
-
-                    <div class="col-12">
-                      <%= f.label :password,"Password",for:"yourPassword" , class: "form-label" %><br />
-                      <%= f.password_field :password,class:"form-control", id:"yourPassword", required:true, autocomplete: "current-password" %>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                       <% if devise_mapping.rememberable? %>
-                          <%= f.check_box :remember_me, class: "form-check-input", id: "rememberMe" %>
-                          <%= f.label :remember_me, "Remember me", class: "form-check-label", for: "rememberMe" %>
-                      <% end %>
-                      </div>
-                    </div>
+                    <br />
                     <div class="actions">
-                      <%= f.submit "Login", class:"btn btn-primary w-100" %>
+                      <%= f.submit "Submit", class:"btn btn-dark w-100" %>
                     </div>
                   <% end %>
 
                 </div>
                 <div style="display: flex; justify-content: center;">
-                <%= render "devise/shared/links" %>
+                <%#= render "devise/shared/links" %>
                 </div>
             
               </div>
@@ -73,3 +57,6 @@
       </section>
 
     </div>
+
+
+
