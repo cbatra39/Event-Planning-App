@@ -56,13 +56,23 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+
+  config.hosts << "a401-112-196-113-2.ngrok-free.app"
+  # config.hosts =  ENV['HOSTS'] 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
+  config.action_mailer.default_url_options = { host: 'localhost', port: ENV['PORT'] }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => 'b3af9363580592',
+    :password => '9a3a0c70a839a2',
+    :address => 'sandbox.smtp.mailtrap.io',
+    :domain => 'sandbox.smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 

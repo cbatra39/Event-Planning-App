@@ -1,26 +1,42 @@
 class ProfilesController < ApplicationController
+  include Responses
     skip_before_action :verify_authenticity_token
-
     before_action :authenticate_user!
-  
     def show
       @profile = current_user.profile
-      render json: { profile: @profile, email: current_user.email, image_url: @profile.image.present? ? url_for(@profile.image) : nil}, status: :ok
+    
+      if @profile.nil?
+        error("Profile not found")
+      else
+        data = {
+          "dob": @profile.dob,
+          "phone_number": @profile.phone_number,
+          "address": @profile.address,
+          "first_name": @profile.first_name,
+          "last_name": @profile.last_name,
+          "email": current_user.email,
+          "profile_image": @profile.image.present? ? url_for(@profile.image) : nil
+        }
+    
+        success(data: data)
+      end
     end
+    
+    
   
     def create
       if current_user.profile.present?
-        render json: { error: "Profile already exists for the current user" }, status: :unprocessable_entity
+         error("Profile already exists for the current user" )
       else
+        @profile = current_user.build_profile(set_params)
         image = params[:image]
         if image.present?
-            @profile = current_user.build_profile(set_params)
             @profile.image.attach(image)
-            if @profile.save
-            render json: { message: "Profile created", data: @profile, image_url:url_for(@profile.image)}, status: :ok
-            else
-            render json: { message: "Profile not created" }, status: :unprocessable_entity
-            end
+        end
+        if @profile.save
+          success("Profile created")
+        else
+        error("Profile not created" )
         end
       end
     end
@@ -28,14 +44,15 @@ class ProfilesController < ApplicationController
     def update 
       @profile = current_user.profile
       if @profile.nil?
-        render json: { error: "first create a  profile"},status: :unprocessable_entity
+        error("first create a  profile")
       elsif @profile.update(set_params)
-        if @profile.image.present?
-            @profile.image.attach(params[:image])
+        image = params[:image]
+        if image.present?
+            @profile.image.attach(image)
         end
-        render json: { message: "Profile updated successfully", data: @profile, email: current_user.email ,image_url: @profile.image.present? ? url_for(@profile.image) : nil}, status: :ok
+        success( "Profile updated successfully")
       else
-        render json: { message: "Profile not updated" }, status: :unprocessable_entity
+        error("Profile not updated" )
       end
     end
   
@@ -43,10 +60,10 @@ class ProfilesController < ApplicationController
       @profile = current_user.profile
       if @profile
         if @profile.destroy
-          render json: { message: "Profile deleted" }, status: :ok
+          success("Profile deleted" )
         end
       else
-        render json: { message: "Profile does not exist" }, status: :unprocessable_entity
+        error("Profile does not exist")
       end
     end
   
