@@ -22,7 +22,7 @@
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
               <h2>Kevin Anderson</h2>
-              <h3>Web Designer</h3>
+              
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -61,9 +61,8 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                 
+                 <% if current_user.profile.present? %>
                   <h5 class="card-title">Profile Details</h5>
-
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
                     <div class="col-lg-9 col-md-8"><%= current_user.profile.first_name %> <%= current_user.profile.last_name %></div>
@@ -90,7 +89,7 @@
                     <div class="col-lg-3 col-md-4 label">Email</div>
                     <div class="col-lg-9 col-md-8"><%= current_user.email %></div>
                   </div>
-
+<% end %>
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">

@@ -9,6 +9,5 @@ class CreateProfiles < ActiveRecord::Migration[7.0]
       t.references :user, foreign_key: { to_table: :users }, index: true 
       t.timestamps
     end
-    add_foreign_key :profiles, :users, on_delete: :cascade
   end
 end
