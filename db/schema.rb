@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_02_065120) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_065120) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_hashtags", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "hashtag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_hashtags_on_event_id"
+    t.index ["hashtag_id"], name: "index_event_hashtags_on_hashtag_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "location"
@@ -70,8 +79,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_065120) do
   end
 
   create_table "hashtags", force: :cascade do |t|
-    t.string "hashtag"
-    t.boolean "status"
+    t.string "name"
+    t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -102,6 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_065120) do
     t.boolean "otp_verified", default: false
     t.string "status", default: "active"
     t.datetime "otp_generated_at"
+    t.string "device_token"
+    t.string "device_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -109,6 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_065120) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "event_hashtags", "events"
+  add_foreign_key "event_hashtags", "hashtags"
   add_foreign_key "events", "event_categories", column: "event_categories_id"
   add_foreign_key "events", "users"
   add_foreign_key "profiles", "users", on_delete: :cascade

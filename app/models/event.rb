@@ -2,7 +2,8 @@ class Event < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_one :event_categories
-  has_many :hashtags
+  has_many :event_hashtags
+  has_many :hashtags, through: :event_hashtags
 
   validates :title, presence: true
   validates :location, presence: true
@@ -14,4 +15,5 @@ class Event < ApplicationRecord
   validates :end_time, presence: true
   validates :description, presence: true
   validates :event_categories_id, presence: true
+ 
 end

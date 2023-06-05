@@ -8,6 +8,7 @@ class Users::SessionsController < Devise::SessionsController
  
 
   def respond_with(resource, options={})
+   
     user = User.find_by(email: resource[:email])
     if user && user.status == "active"
       success("User signed in successfully")

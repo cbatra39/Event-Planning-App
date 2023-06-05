@@ -8,6 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def respond_with(resource, options={})
     if resource.persisted?
       token = JWT.encode({user_id: resource.id}, Rails.application.secrets.secret_key_base)
+      
       success('signed up successfully')
     else
       error('unprocessable_entity' )
