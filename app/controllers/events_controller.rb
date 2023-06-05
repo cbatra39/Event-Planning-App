@@ -91,22 +91,28 @@ class EventsController < ApplicationController
     if image.present?
       @event.image.attach(image)
     end
-
+  
     if params[:hashtags].present?
       hashtag_names = params[:hashtags].first.gsub(/[\[\]\s]/, '').split(',').map { |name| name.delete('#') }.join(',')
       hashtags = hashtag_names.split(",")
-      h = create_or_find_hashtags(hashtags) 
+      h = create_or_find_hashtags(hashtags)
     end
-
+  
     if @event.start_date.present? && @event.start_date > Time.zone.now
       if @event.update(set_params)
         if h.present?
-          # Delete existing event hashtags
-          @event.event_hashtags.destroy_all
+          # Delete existing event hashtags that are not in the updated hashtags list
+          @event.event_hashtags.where.not(hashtag_id: h.pluck(:id)).destroy_all
   
+          # Create new event hashtags
           h.each do |hashtag|
-            EventHashtag.create(event_id: @event.id, hashtag_id: hashtag.id)
+            unless @event.event_hashtags.exists?(hashtag_id: hashtag.id)
+              EventHashtag.create(event_id: @event.id, hashtag_id: hashtag.id)
+            end
           end
+        else
+          # If no hashtags are provided, delete all existing event hashtags
+          @event.event_hashtags.destroy_all
         end
         success("Event successfully updated")
       else
@@ -116,6 +122,7 @@ class EventsController < ApplicationController
       error("Event date must be in the future")
     end
   end
+  
   
   
 
