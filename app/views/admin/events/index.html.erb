@@ -1,0 +1,67 @@
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Manage Events</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">Event Management</li>
+          <li class="breadcrumb-item active">Events</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h5 class="card-title">Events <span>| List</span></h5>
+
+               <table class="table table-borderless datatable" >
+                <thead>
+                    <tr>
+                    <th scope="col">Event Title</th> 
+                    <th scope="col">Status</th>
+                    <th scope="col">Toggle Status</th>
+                    <th scope="col">Delete User</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @events.each do |e| %>
+                    <tr>
+                    <td><a href="<%= admin_events_path(e) %>"><%= e.title %></a></td>                    
+                    <% if e.is_approved == false %>
+                        <% s = "suspended" %>
+                        <td><span class="badge bg-danger"><%= s %></span></td>
+                    <% else %>
+                        <% s = "active" %>
+                    <td><span class="badge bg-success"><%= s %></span></td>
+                    <% end %>
+                    <td><% if e.is_approved == true %>
+                      <%= link_to "",  update_status_admin_event_path(e),data:{'turbo-method': :patch}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
+                    <% else %>
+                      <%= link_to "", update_status_admin_event_path(e),data:{'turbo-method': :patch}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
+                    <% end %>
+                    </td>
+                    <td><%= link_to "",admin_event_path(e),data:{turbo_method: :delete,turbo_confirm: 'Are you sure?'}, class: "fa-solid fa-trash"%></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+                </table>
+
+
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>

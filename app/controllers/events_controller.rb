@@ -39,21 +39,31 @@ class EventsController < ApplicationController
     if image.present?
       @event.image.attach(image)
     end
+
+    if params[:hashtags].present?
+      hashtag_names = params[:hashtags].first.gsub(/[\[\]\s]/, '').split(',').map { |name| name.delete('#') }.join(',')
+      hashtags = hashtag_names.split(",")
+      h = create_or_find_hashtags(hashtags) 
+    end
   
-    if @event.start_date.present? && @event.start_date > Date.today # Check if the event date is upcoming
-      if @event.end_date.present? && @event.end_date < @event.start_date # Check if end date is earlier than start date
-        error("End date must be greater than or equal to start date")
-      elsif event_already_booked?(@event.location, @event.start_date, @event.end_date, @event.start_time, @event.end_time)
-        error("Location is already booked for this date and time")
-      elsif @event.save
+    if @event.start_date.present? && @event.start_date > Time.zone.now
+      if @event.save
+        if h.present?
+          h.each do |hashtag|
+            EventHashtag.create(event_id: @event.id, hashtag_id: hashtag.id)
+          end 
+        end
         success("Event successfully created", id: @event.id)
       else
-        error("Event not created")
+        error("all fields are required")
       end
     else
       error("Event date must be in the future")
     end
   end
+ 
+  
+ 
   
 
   def destroy
@@ -145,6 +155,16 @@ class EventsController < ApplicationController
                               
         existing_event.present?
       end
+
+      def create_or_find_hashtags(hashtag_names)
+        hashtags = []
+        hashtag_names.each do |name|
+          hashtag = Hashtag.find_or_create_by(name: name) # Find or create the hashtag based on the name
+          hashtags << hashtag
+        end
+        hashtags
+      end
+       
       
   
     def set_params
