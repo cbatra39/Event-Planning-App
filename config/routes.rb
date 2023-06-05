@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     post 'login', to: 'auth/sessions#create', as: :post_login
     delete 'logout', to: 'auth/sessions#destroy', as: :logout
     get '/profile', to: 'home#profile', as: :profile
+    patch '/profile', to: 'home#update_profile', as: :update_profile
+
     get 'forgot-password', to: 'auth/passwords#new', as: :forgot_password
     post 'forgot/send_mail',to: "auth/passwords#passwordreset", as: :send_reset_instructions
     resources :users, except: [:new, :create,:edit,:update] do
@@ -49,6 +51,12 @@ Rails.application.routes.draw do
         patch 'update_status'
       end
     end
+    resources :event_categories do
+    member do
+      patch 'update_status'
+    end
+  end
+
 
   end
 

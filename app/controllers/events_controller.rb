@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @events = Event.where(event_status: "Active", is_approved: true)
+    @events = Event.where(event_status: "active", is_approved: true)
     if @events.present?
       event_data = @events.map do |event|
         category_name = EventCategory.find(event.event_categories_id).event_category

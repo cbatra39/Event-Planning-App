@@ -1,3 +1,59 @@
-<h1>User Detail</h1><br>
-<h2><%#=@user.first_name%> <%#=@user.last_name%></h2>
-<p><%=@user.email%></p>
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>User Details</h1>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+
+
+<div class="card mb-3" style="max-width: 2000px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <%= image_tag(@user.profile.image, class: 'img-fluid rounded-start') %>
+
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= @user.profile.first_name %> <%= @user.profile.last_name %></h5>
+        <p class="card-text">
+          <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Date of Birth</div>
+                    <div class="col-lg-9 col-md-8"><%= @user.profile.dob %></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Phone Number</div>
+                    <div class="col-lg-9 col-md-8"><%= @user.profile.phone_number %></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Address</div>
+                    <div class="col-lg-9 col-md-8"><%= @user.profile.address %></div>
+                  </div>
+
+                
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8"><%= @user.email %></div>
+                  </div>
+            </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+      </div>
+    </section>
+
+</main><!-- End #main -->
+
+
+<%= render partial: "shared/footer" %>
