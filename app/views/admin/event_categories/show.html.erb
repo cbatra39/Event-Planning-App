@@ -1,9 +1,63 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @event_category %>
 
-<div>
-  <%= link_to "Edit", edit_admin_event_category_path(@event_category) %> |
-  <%= link_to "Back", admin_event_categories_path %>
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
 
-</div>
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Manage Categories</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">Categories Management</li>
+          <li class="breadcrumb-item active">Categories</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h2 class="card-title"><%= @event_category.event_category%></h2>
+                                        
+                                        
+                    <%= render @event_category %>
+                    
+
+                    <div>
+                      <%= link_to "Edit", edit_admin_event_category_path(@event_category) %> |
+                      <%= link_to "Back", admin_event_categories_path %>
+
+                    </div>
+
+
+                </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

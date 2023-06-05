@@ -13,17 +13,19 @@
 
   <div>
     <%= form.label :event_category, style: "display: block" %>
-    <%= form.text_field :event_category %>
+    <%= form.text_field :event_category , class:"form-control" %>
   </div>
+
+<br>
 
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.text_field :status , class:"form-control" %>
   </div>
 
 
-
+<br>
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary"  %>
   </div>
 <% end %>
