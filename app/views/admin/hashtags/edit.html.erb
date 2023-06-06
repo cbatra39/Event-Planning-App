@@ -1,43 +1,10 @@
-<%= render partial: "shared/header" %>
-<%= render partial: "shared/sidebar" %>
+<h1>Editing hashtag</h1>
 
-<main id="main" class="main">
-    <div class="pagetitle">
-      <h1>Manage Hashtags</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
-          <li class="breadcrumb-item">Hashtags Management</li>
-          <li class="breadcrumb-item active">Hashtags</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-    <section class="section Users">
-      <div class="row">
-        <div class="col-12">
-              <div class="card recent-sales overflow-auto">
-                <div class="card-body">
-                  <h2 class="card-title">Edit Hashtag</h2>
-                    <%= render "form", hashtag: @hashtag %>
-                    <br>
-                    <div>
-                      <%= link_to "Show", admin_hashtag_path(@hashtag) %> |
-                      <%= link_to "Back", admin_hashtags_path %>
-                    </div>
-                </div>
-              </div>
-          </div>
-        </div>
-    </section>
+<%= render "form", hashtag: @hashtag %>
 
-</main><!-- End #main -->
-<%= render partial: "shared/footer" %>
+<br>
 
-
-
-
-
-
-
-
-
+<div>
+  <%= link_to "Show", admin_hashtag_path(@hashtag) %> |
+  <%= link_to "Back", admin_hashtags_path %>
+</div>

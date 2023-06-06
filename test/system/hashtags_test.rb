@@ -14,8 +14,6 @@ class HashtagsTest < ApplicationSystemTestCase
     visit hashtags_url
     click_on "New hashtag"
 
-    fill_in "Hashtag", with: @hashtag.hashtag
-    check "Status" if @hashtag.status
     click_on "Create Hashtag"
 
     assert_text "Hashtag was successfully created"
@@ -26,8 +24,6 @@ class HashtagsTest < ApplicationSystemTestCase
     visit hashtag_url(@hashtag)
     click_on "Edit this hashtag", match: :first
 
-    fill_in "Hashtag", with: @hashtag.hashtag
-    check "Status" if @hashtag.status
     click_on "Update Hashtag"
 
     assert_text "Hashtag was successfully updated"

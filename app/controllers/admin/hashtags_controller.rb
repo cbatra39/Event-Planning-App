@@ -1,4 +1,4 @@
-class Admin::HashtagsController < ApplicationController
+class  Admin::HashtagsController < ApplicationController
   before_action :set_hashtag, only: %i[ show edit update destroy ]
 
   # GET /hashtags or /hashtags.json
@@ -22,29 +22,21 @@ class Admin::HashtagsController < ApplicationController
   # POST /hashtags or /hashtags.json
   def create
     @hashtag = Hashtag.new(hashtag_params)
-
-    respond_to do |format|
       if @hashtag.save
-        format.html { redirect_to hashtag_url(@hashtag), notice: "Hashtag was successfully created." }
-        format.json { render :show, status: :created, location: @hashtag }
+        redirect_to admin_hashtag_url(@hashtag), notice: "Hashtag was successfully created." 
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @hashtag.errors, status: :unprocessable_entity }
+        redirect_to new_admin_hashtag_path ,status: :unprocessable_entity 
       end
-    end
+    
   end
 
   # PATCH/PUT /hashtags/1 or /hashtags/1.json
   def update
-    respond_to do |format|
       if @hashtag.update(hashtag_params)
-        format.html { redirect_to hashtag_url(@hashtag), notice: "Hashtag was successfully updated." }
-        format.json { render :show, status: :ok, location: @hashtag }
+        redirect_to admin_hashtag_url(@hashtag), notice: "Hashtag was successfully updated." 
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @hashtag.errors, status: :unprocessable_entity }
+        redirect_to edit_admin_hashtag_path, status: :unprocessable_entity , notice: "Hashtag could not be updated."
       end
-    end
   end
 
   # DELETE /hashtags/1 or /hashtags/1.json
@@ -56,12 +48,6 @@ class Admin::HashtagsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  def update_status
-    @hashtag = Hashtag.find(params[:id])
-    @hashtag.update(status: @hashtag.status==true ? false : true)
-    redirect_to admin_hashtags_url
-  end
-  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -71,6 +57,6 @@ class Admin::HashtagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hashtag_params
-      params.require(:hashtag).permit(:hashtag, :status)
+      params.fetch(:hashtag, {})
     end
 end

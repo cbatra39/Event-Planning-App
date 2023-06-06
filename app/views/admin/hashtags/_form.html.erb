@@ -1,4 +1,4 @@
-<%= form_with(url:admin_hashtags_path ,scope: :hashtag) do |form| %>
+<%= form_with(url:admin_hashtags_path ,scope: :hashtags) do |f| %>
   <% if hashtag.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(hashtag.errors.count, "error") %> prohibited this hashtag from being saved:</h2>
@@ -12,20 +12,6 @@
   <% end %>
 
   <div>
-    <%= form.label :hashtag, style: "display: block" %>
-    <%= form.text_field :hashtag , class:"form-control" %>
-  </div>
-
-<br>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status , class:"form-control" %>
-  </div>
-
-
-<br>
-  <div>
-    <%= form.submit class: "btn btn-primary"  %>
+    <%= f.submit %>
   </div>
 <% end %>

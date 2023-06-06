@@ -23,10 +23,11 @@ class ProfilesController < ApplicationController
     end
     
     
-  
     def create
+  
       if current_user.profile.present?
          error("Profile already exists for the current user" )
+        
       else
         @profile = current_user.build_profile(set_params)
         image = params[:image]
@@ -39,8 +40,10 @@ class ProfilesController < ApplicationController
         error("Profile not created" )
         end
       end
+    
     end
   
+
     def update 
       @profile = current_user.profile
       if @profile.nil?

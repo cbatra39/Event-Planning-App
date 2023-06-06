@@ -17,7 +17,11 @@ class HashtagsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create hashtag" do
     assert_difference("Hashtag.count") do
+<<<<<<< HEAD
       post hashtags_url, params: { hashtag: { hashtag: @hashtag.hashtag, status: @hashtag.status } }
+=======
+      post hashtags_url, params: { hashtag: {  } }
+>>>>>>> origin/development
     end
 
     assert_redirected_to hashtag_url(Hashtag.last)
@@ -34,7 +38,11 @@ class HashtagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update hashtag" do
+<<<<<<< HEAD
     patch hashtag_url(@hashtag), params: { hashtag: { hashtag: @hashtag.hashtag, status: @hashtag.status } }
+=======
+    patch hashtag_url(@hashtag), params: { hashtag: {  } }
+>>>>>>> origin/development
     assert_redirected_to hashtag_url(@hashtag)
   end
 

@@ -46,6 +46,7 @@ gem 'devise'
 gem 'devise-jwt'
 gem "rack-cors"
 gem 'dotenv-rails'
+gem 'rpush'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

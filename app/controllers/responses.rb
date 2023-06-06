@@ -1,12 +1,14 @@
 module Responses
-  def success(message = nil, data: nil,id: nil, email: nil, image_url: nil)
+  def success(message = nil, data: nil,id: nil, email: nil, image_url: nil, event_category: nil,events:nil)
     response = { status: 200 }
     response[:message] = message if message.present?
     response[:data] = data if data.present?
     response[:email] = email if email.present?
     response[:image_url] = image_url if image_url.present?
     response[:id] = id if id.present?
-  
+    response[:events] = events if events.present?
+    response[:event_category] = event_category if event_category.present?
+    
     render json: response, status: :ok
   end
 
