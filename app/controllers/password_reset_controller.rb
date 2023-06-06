@@ -16,24 +16,26 @@ class PasswordResetController < ApplicationController
       end
     end
     
+
+    
     def verify_otp
-      user = User.find_by(otp: params[:otp])
+      user = User.find_by(email: params[:email], otp: params[:otp])
       if user
         if user.otp_generated_at && (Time.now - user.otp_generated_at) > 3.minutes
-          user.update(otp:0)
+          user.update(otp: 0)
           error("OTP has expired. Please request a new OTP.")
         else
           user.update(otp_verified: true)
           success("OTP verified successfully")
         end
       else
-        error("Invalid OTP")
+        error("please enter correct email or otp")
       end
     end
     
 
         def reset_password
-          user = User.find_by(otp_verified: true)
+          user = User.find_by(email: params[:email], otp_verified: true)
           if user
             if params[:password] != params[:password_confirmation]
               error("Password and password confirmation do not match")
