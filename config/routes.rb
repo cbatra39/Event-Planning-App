@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -52,12 +53,17 @@ Rails.application.routes.draw do
       end
     end
     resources :event_categories do
-    member do
-      patch 'update_status'
+      member do
+        patch 'update_status'
+      end
     end
-  end
-
-
+    get "/events", to: 'event#index'
+    get '/event/:id', to: 'event#show'
+    resources :hashtags do
+      member do
+        patch 'update_status'
+      end
+    end
   end
 
   

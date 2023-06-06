@@ -2,6 +2,8 @@
 
 one:
   hashtag: MyString
+  status: false
 
 two:
   hashtag: MyString
+  status: false
