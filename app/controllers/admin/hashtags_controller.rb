@@ -39,6 +39,14 @@ class  Admin::HashtagsController < ApplicationController
       end
   end
 
+
+  def update_status
+    @hashtag = Hashtag.find(params[:id])
+    @hashtag.update(status: @hashtag.status==true ? false : true)
+    redirect_to admin_hashtags_url
+  end
+  
+
   # DELETE /hashtags/1 or /hashtags/1.json
   def destroy
     @hashtag.destroy

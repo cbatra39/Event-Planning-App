@@ -4,7 +4,6 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
 
-
   def index
     @events = Event.where(is_approved:true, event_status: "active")
     if @events.present?
@@ -23,11 +22,12 @@ class EventsController < ApplicationController
     if image.present?
       @event.image.attach(image)
     end
-
     if params[:hashtags].present?
       hashtag_names = params[:hashtags].first.gsub(/[\[\]\s]/, '').split(',').map { |name| name.delete('#') }.join(',')
       hashtags = hashtag_names.split(",")
+
       h = create_or_find_hashtags(hashtags) 
+
     end
   
     if @event.start_date.present? && @event.start_date > Time.zone.now
@@ -173,8 +173,9 @@ end
        
   def create_or_find_hashtags(hashtag_names)
     hashtags = []
-    hashtag_names.each do |name|
-      hashtag = Hashtag.find_or_create_by(name: name) # Find or create the hashtag based on the name
+    
+    hashtag_names.each do |n|
+      hashtag = Hashtag.find_or_create_by(name: n) # Find or create the hashtag based on the name
       hashtags << hashtag
     end
     hashtags

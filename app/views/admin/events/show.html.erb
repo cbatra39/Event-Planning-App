@@ -1,0 +1,100 @@
+<p style="color: green"><%= notice %></p>
+
+
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Event Detail</h1>
+      
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+        <div class="col-12 ">
+        
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body ">
+                  <h3  style="margin-top: 10px; font-weight: bold; "><%= @event.title%></h3>
+                  
+                                        
+                <p class="card-text" style="display: flex; justify-content: center;">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Location</span>
+                  </td>
+                  <td><%= @event.location %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Category</span>
+                  </td>
+                  <td><% eventid = @event.event_categories_id%>
+                  <% cat_name = EventCategory.find_by(id: eventid)%>
+                  <%= cat_name.event_category%>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Start</span>
+                  </td>
+                  <td><%= @event.start_date.strftime('%b %e, %Y') %> <%= @event.start_time.strftime("%I:%M%P") %> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">End</span>
+                  </td>
+                  <td><%= @event.end_date.strftime('%b %e, %Y') %> <%= @event.end_time.strftime("%I:%M%P") %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Description</span>
+                  </td>
+                  <td><%= @event.description %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Hosted by</span>
+                  </td>
+                  <td><% user = User.find_by(id: @event.user_id) %><%= user.email%></td>
+                </tr>
+              </tbody>
+            </table>
+          </p>  
+          <iframe width="500" height= "500" src="https://maps.google.com/maps?q=<%=@event.latitude%>,<%=@event.longitude%>&hl=es;z=14&output=embed"></iframe>
+
+          <div>
+          <br>
+            <%= link_to "Back", admin_events_path %>
+         </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

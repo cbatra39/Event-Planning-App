@@ -10,17 +10,23 @@ class Admin::EventsController < ApplicationController
     # GET /users/1 or /users/1.json
     def show
     end
-  
+
     def update_status
       @event = Event.find(params[:id])
-      @event.update(is_approved: @event.is_approved == true ? false : true)
-      redirect_to admin_events_url
+      @user = User.find_by(id: @event.user_id)
+      if @user.status == "active"
+        @event.update(is_approved: !@event.is_approved)
+        redirect_to admin_events_url
+      else
+        redirect_to admin_events_url, notice: "This user is suspended."
+      end
     end
+    
     
   
     # DELETE /users/1 or /users/1.json
     def destroy
-      @events.destroy
+      @event.destroy
   
       respond_to do |format|
         format.html { redirect_to admin_events_url, notice: "Event was successfully destroyed." }
