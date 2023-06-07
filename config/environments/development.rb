@@ -57,7 +57,6 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
 
-  config.hosts << "c054-112-196-113-2.ngrok-free.app"
   # config.hosts =  ENV['HOSTS'] 
   # Suppress logger output for asset requests.
   config.assets.quiet = true

@@ -5,6 +5,9 @@ class Event < ApplicationRecord
   has_many :event_hashtags, foreign_key: 'event_id', dependent: :destroy
   has_many :hashtags, through: :event_hashtags
 
+  has_many :like_events
+  has_many :liking_users, through: :like_events, source: :user
+
   validates :title, presence: true
   validates :location, presence: true
   validates :latitude, presence: true
