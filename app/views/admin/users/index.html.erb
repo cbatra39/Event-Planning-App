@@ -41,7 +41,7 @@
                     <td>User</td>
                     <% end %>
                     <td><%= u.email %></td>
-                    <% if u.status == "inactive" %>
+                    <% if u.status == "suspended" %>
                     <td><span class="badge bg-danger"><%= u.status %></span></td>
                     <% else %>
                     <td><span class="badge bg-success"><%= u.status %></span></td>

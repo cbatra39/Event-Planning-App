@@ -48,7 +48,7 @@
                       <td><% if h.status == true %>
                         <%= link_to "",  update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this hashtag?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
                       <% else %>
-                        <%= link_to "", update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this hashtag?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
+                        <%= link_to "", update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to restore this hashtag?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
                       <% end %>
                       </td>
                       <td>

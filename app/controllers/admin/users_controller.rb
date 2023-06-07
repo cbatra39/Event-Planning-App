@@ -13,8 +13,8 @@ class Admin::UsersController < ApplicationController
 
   def update_status
     @user = User.find(params[:id])
-    @user.update(status: @user.status=="active" ? "inactive" : "active")
-    if(@user.status == "inactive")
+    @user.update(status: @user.status=="active" ? "suspended" : "active")
+    if(@user.status == "suspended")
       @events = Event.all.where(user_id:params[:id])
       AccountSuspensionMailer.suspended(@user).deliver_now
       @events.each do |e|

@@ -1,0 +1,139 @@
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Manage Reports</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">Reports Management</li>
+          <li class="breadcrumb-item active">Reports</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Reported Events</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Reported Users</button>
+                </li>
+
+         
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                
+                <table class="table table-borderless datatable" >
+                <thead>
+                    <tr>
+                    <th scope="col">Reported Events</th> 
+                    <th scope="col">Status</th>
+                    <th scope="col">Toggle Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                <% reported_events = @reports.all.where(report_type: 1)%>
+                    <% reported_events.each do |r| %>
+                    <tr>
+                    <% event_name = Event.find_by(id: r.reported_id) %>
+                    <td><a href=""><%= event_name.title %></a></td>                    
+                    <% if r.status == 1 %>
+                    <td><span class="badge bg-warning">Reported</span></td>
+                    <% elsif r.status == 2%>
+                    <td><span class="badge bg-success">Approved</span></td>
+                     <% elsif r.status == 3%>
+                    <td><span class="badge bg-success">Inactive</span></td>
+                    <%else%>
+                    <td><span class="badge bg-success">Suspended</span></td>
+                    <% end %>
+                    
+                    </tr>
+                    <% end %>
+                </tbody>
+                </table>
+
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                  <!-- Profile Edit Form -->
+                  <%= form_with( url: admin_profile_path, scope: :profile, method: :patch) do |f| %>
+                    
+                    <div class="row mb-3">
+                      <%= f.label :first_name , "FirstName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
+                      <div class="col-md-8 col-lg-9">
+                        <%= f.text_field :first_name, value: current_user.profile.first_name, class: "form-control", id: "fullName" %>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <%= f.label :last_name , "LastName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
+                      <div class="col-md-8 col-lg-9">
+                        <%= f.text_field :last_name, value: current_user.profile.last_name, class: "form-control", id: "fullName" %>
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <%= f.label :address , "Address" ,id:"Address", class: "col-md-4 col-lg-3 col-form-label" %>                      
+                      <div class="col-md-8 col-lg-9">
+                        <%= f.text_field :address, value: current_user.profile.address, class: "form-control", id: "Address" %>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <%= f.label :phone_number , "Phone" , class: "col-md-4 col-lg-3 col-form-label" %>                      
+                      <div class="col-md-8 col-lg-9">
+                        <%= f.text_field :phone_number , value: current_user.profile.phone_number , class: "form-control", id: "Phone" %>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <%= f.label :image , "profileImage" ,for:"yourUsername", class: "form-label" %>                      
+                      <div class="col-md-4 col-lg-3 col-form-label">
+                          <%= f.file_field :image, style: 'display: none;', id: 'upload-image-field' %>
+                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" onclick="document.getElementById('upload-image-field').click(); return false;">
+                              <i class="bi bi-upload"></i>
+                            </a>
+                      </div>
+                    </div>
+
+
+                    <div class="text-center">
+                      <%= f.submit "Save Changes" ,class:"btn btn-primary"%>
+
+                    </div>
+                  <% end %><!-- End Profile Edit Form -->
+
+                </div>
+
+        
+
+               
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <%= render partial: "shared/footer" %>
