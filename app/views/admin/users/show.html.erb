@@ -5,52 +5,63 @@
       <h1>User Details</h1>
     </div><!-- End Page Title -->
     <section class="section Users">
-      <div class="row">
+     
+    
+    <%if @user.profile.present?%>
+    
+    
+        <div class="card " style="max-width:40rem;" >
+          <div class="card-body">
+            <h5 class="card-title mb-1 pb-0"><%= @user.profile.first_name %> <%= @user.profile.last_name %></h5>
+              
+                <div class ="row align-items-center justify-content-center">
+                  
+                  <%if @user.profile.image.present?%>
+                    
+                    <div class="col-6 p-3">
+                    <%= image_tag(@user.profile.image, class: 'img-fluid rounded-circle',style:"height:200px;width:200px;") %>
+                    <%end%>      
+                    </div>
+                  
+                </div>
 
 
-<div class="card mb-3" style="max-width: 2000px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <%= image_tag(@user.profile.image, class: 'img-fluid rounded-start') %>
 
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><%= @user.profile.first_name %> <%= @user.profile.last_name %></h5>
-        <p class="card-text">
-          <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Date of Birth</div>
-                    <div class="col-lg-9 col-md-8"><%= @user.profile.dob %></div>
-                  </div>
-
+                  <table class="table table-stripped">
+                    <tbody>
+                      <tr>
+                        <td class = "text-muted"><i class="fa-solid fa-envelope"></i>  Email</td>
+                        <td><%= @user.email %></td>
+                      </tr>
+                      <tr>
+                        <td class = "text-muted"> <i class="fa-solid fa-calendar-days"></i> Date of Birth</td>
+                        <td><%= @user.profile.dob %></td>
+                      </tr>
+                      <tr>
+                        <td class = "text-muted"> <i class="fa-solid fa-mobile"></i> Phone Number</td>
+                        <td><%= @user.profile.phone_number %></td>
+                      </tr>
+                      <tr>
+                        <td class = "text-muted"><i class="fa-solid fa-house"></i> Address</td>
+                        <td><%= @user.profile.address%></td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone Number</div>
-                    <div class="col-lg-9 col-md-8"><%= @user.profile.phone_number %></div>
+                    <div class="col-3"><%= link_to "Back",admin_users_path, class:"btn btn-secondary" %></div>
+                    <div class="col-6"></div>
+                    <div class="col-3"><a class="btn btn-primary" href="mailto:<%=@user.email%>">Contact user</a></div>
                   </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8"><%= @user.profile.address %></div>
-                  </div>
-
-                
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8"><%= @user.email %></div>
-                  </div>
-            </div>
-        </p>
+              
+          </div>
+        </div>
+    <%else%>
+  <div class="p-5">
+      <h4>User has no profile</h4>
       </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-      </div>
+    <%end%>
+ 
     </section>
 
 </main><!-- End #main -->

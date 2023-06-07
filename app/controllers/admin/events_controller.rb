@@ -5,6 +5,7 @@ class Admin::EventsController < ApplicationController
     # GET /users or /users.json
     def index
       @events = Event.all
+      
     end
   
     # GET /users/1 or /users/1.json

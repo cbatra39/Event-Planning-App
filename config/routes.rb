@@ -57,7 +57,11 @@ get '/sort_events/start_time', to: 'events#sort_events'
     patch '/profile', to: 'home#update_profile', as: :update_profile
     get 'forgot-password', to: 'auth/passwords#new', as: :forgot_password
     post 'forgot/send_mail',to: "auth/passwords#passwordreset", as: :send_reset_instructions
-    resources :hashtags
+    resources :hashtags do
+      member do
+        patch 'update_status'
+      end
+    end
     resources :users, except: [:new, :create,:edit,:update] do
       member do
         patch 'update_status'

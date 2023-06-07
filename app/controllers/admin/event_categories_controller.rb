@@ -36,7 +36,7 @@ class Admin::EventCategoriesController < ApplicationController
   # PATCH/PUT /event_categories/1 or /event_categories/1.json
   def update
       if @event_category.update(event_category_params)
-        redirect_to event_category_url(@event_category), notice: "Event category was successfully updated." 
+        redirect_to admin_event_categories_path, notice: "Event category was successfully updated." 
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @event_category.errors, status: :unprocessable_entity }

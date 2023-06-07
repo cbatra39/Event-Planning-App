@@ -19,10 +19,10 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
+        <% if current_user.profile.present? %>
               <h2><%= current_user.profile.first_name %></h2>
               <%= image_tag(current_user.profile.image, alt: 'Profile', class: 'rounded-circle') %>
-              
+              <%end%>
               <div class="social-links mt-2">
                 <%# <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
+                 <% if current_user.profile.present? %>
                   <!-- Profile Edit Form -->
                   <%= form_with( url: admin_profile_path, scope: :profile, method: :patch) do |f| %>
                     
@@ -142,7 +142,7 @@
 
                     </div>
                   <% end %><!-- End Profile Edit Form -->
-
+<% end %>
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-settings">

@@ -36,9 +36,9 @@
                     <% @users.each do |u| %>
                     <tr>
                     <% if u.profile.present? %>
-                    <td><a href="<%= admin_user_path(u) %>"><%= u.profile.first_name %></a></td>                    
+                    <td><%= link_to u.profile.first_name,admin_user_path(u)%></a></td>                    
                     <% else %>
-                    <td>User</td>
+                    <td><%= link_to "User",admin_user_path(u)%></td>
                     <% end %>
                     <td><%= u.email %></td>
                     <% if u.status == "inactive" %>

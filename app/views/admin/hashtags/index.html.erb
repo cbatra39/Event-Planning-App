@@ -10,23 +10,23 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
-<<<<<<< HEAD
-          <li class="breadcrumb-item">Hashtagss Management</li>
-=======
           <li class="breadcrumb-item">Hashtag Management</li>
->>>>>>> origin/development
           <li class="breadcrumb-item active">Hashtags</li>
         </ol>
       </nav>
+      
     </div><!-- End Page Title -->
     <section class="section Users">
       <div class="row">
         <div class="col-12">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                <%= link_to "", new_admin_hashtag_path,title:"Add new category",style: "margin-left: 1090px;  margin-top: 10px;"  ,class:"fa-solid fa-user-plus"%>
+                  <div class ="row">
+                  <div class ="col-3">
                   <h5 class="card-title">Hashtag <span>| List</span></h5>
-
+                  </div>
+                  <div class="col-8"></div>
+                  <div class="col-1 p-3"><%= link_to "", new_admin_hashtag_path,title:"Add new category" ,class:"fa-solid fa-user-plus"%></div>
                 <table class="table table-borderless datatable" >
 
                 <thead>
@@ -57,7 +57,7 @@
                       </td>
                       <td>
                       <div class="action-links">
-                        <%= link_to "", admin_hashtag_path(h), class: "fa-regular fa-eye text-decoration-none", style: "margin-right: 10px;" %>
+                       
                         <%= link_to "", edit_admin_hashtag_path(h), class: "fa-solid fa-pencil text-decoration-none", style: "margin-right: 10px;" %>
                         <%= link_to "", admin_hashtag_path(h), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "fa-solid fa-trash" %>
                       </div>
