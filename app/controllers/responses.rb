@@ -8,7 +8,6 @@ module Responses
     response[:id] = id if id.present?
     response[:events] = events if events.present?
     response[:event_category] = event_category if event_category.present?
-    
     render json: response, status: :ok
   end
 
