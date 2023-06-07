@@ -26,17 +26,17 @@ class Admin::EventCategoriesController < ApplicationController
     if @event_category.nil?
       @event_category = EventCategory.new(event_category_params)
       if @event_category.save
-        redirect_to admin_event_category_url(@event_category), status: :created, notice: "Event category was successfully created." 
+        redirect_to admin_event_category_url(@event_category), status: :created
       end 
     else
-    redirect_to  new_admin_event_category_path, status: :unprocessable_entity , notice: "Category already exists created."
+    redirect_to  new_admin_event_category_path, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /event_categories/1 or /event_categories/1.json
   def update
       if @event_category.update(event_category_params)
-        redirect_to admin_event_categories_url, notice: "Event category was successfully updated." 
+        redirect_to admin_event_categories_url
       else
         format.html { render admin_event_category_url(@event_category), status: :unprocessable_entity }
         format.json { render json: @event_category.errors, status: :unprocessable_entity }

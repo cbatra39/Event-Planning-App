@@ -1,9 +1,37 @@
-<h1>New hashtag</h1>
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
 
-<%= render "form", hashtag: @hashtag %>
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Manage Categories</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">Categories Management</li>
+          <li class="breadcrumb-item active">Categories</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h2 class="card-title">Add New Hashtag</h2>
+                    <%= render "form", hashtag: @hashtag %>
+                    <br>
+                    <div>
+                      <%= link_to "Back", admin_hashtags_path %>
+                    </div>
+                    <br>
+                    
+                </div>
+              </div>
+          </div>
+        </div>
+    </section>
 
-<br>
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>
 
-<div>
-  <%= link_to "Back", admin_hashtags_path %>
-</div>
+
