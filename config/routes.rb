@@ -6,9 +6,18 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-# resources :filterevents
-get '/sort_events/start_date', to: 'events#sort_events'
-get '/sort_events/start_time', to: 'events#sort_events'
+  
+  post '/report', to: 'events#report'
+  
+  get '/sort_events/start_date', to: 'events#sort_events'
+  get '/sort_events/start_time', to: 'events#sort_events'
+
+  get '/search_events', to: 'events#search_events'
+ 
+  post '/mark_favourite', to: 'events#mark_favourite'
+  post '/join_event', to: 'events#join_event'
+  post '/follow_user', to: 'events#follow_user'
+  post '/like_event', to: 'events#like_event'
 
 
   post 'users/forgot_passwrd', to: 'password_reset#send_otp'
@@ -18,8 +27,8 @@ get '/sort_events/start_time', to: 'events#sort_events'
 
   post 'events/' ,to: 'events#create'
   get 'events',to: 'events#index'
-  put 'events/:id' ,to:'events#update'
-  delete 'events/:id' ,to:'events#destroy'
+  put 'events/:id/' ,to:'events#update'
+  delete 'events/:id/' ,to:'events#destroy' 
   get '/user_events', to: 'events#show_all' 
   get '/event_categories', to: 'events#event_categories'
 

@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
     if user && user.status == "active"
       success("User signed in successfully")
     elsif user && user.status == "inactive"
-      error("Your account has been disabled")
+      error_403("Your account has been disabled")
     else
     error("Invalid email or password")
     end

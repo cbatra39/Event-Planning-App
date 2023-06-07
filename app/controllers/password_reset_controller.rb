@@ -29,7 +29,7 @@ class PasswordResetController < ApplicationController
           success("OTP verified successfully")
         end
       else
-        error("please enter correct email or otp")
+        error_401("please enter correct email or otp")
       end
     end
     

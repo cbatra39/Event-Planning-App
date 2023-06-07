@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
       @profile = current_user.profile
     
       if @profile.nil?
-        error("Profile not found")
+        error_404("Profile not found")
       else
         data = {
           "dob": @profile.dob,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_082319) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "event_attendees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_attendees_on_event_id"
+    t.index ["user_id"], name: "index_event_attendees_on_user_id"
   end
 
   create_table "event_categories", force: :cascade do |t|
@@ -78,11 +88,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "favourite_events", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_favourite_events_on_event_id"
+    t.index ["user_id"], name: "index_favourite_events_on_user_id"
+  end
+
   create_table "hashtags", force: :cascade do |t|
     t.string "name"
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "like_events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_like_events_on_event_id"
+    t.index ["user_id"], name: "index_like_events_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -95,6 +123,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "reported_by_id"
+    t.integer "reported_id"
+    t.integer "report_type"
+    t.text "description"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reported_by_id"], name: "index_reports_on_reported_by_id"
+  end
+
+  create_table "user_followers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "followed_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_by_id"], name: "index_user_followers_on_followed_by_id"
+    t.index ["user_id"], name: "index_user_followers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,9 +168,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_071121) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "event_attendees", "events"
+  add_foreign_key "event_attendees", "users"
   add_foreign_key "event_hashtags", "events"
   add_foreign_key "event_hashtags", "hashtags"
   add_foreign_key "events", "event_categories", column: "event_categories_id"
   add_foreign_key "events", "users"
+  add_foreign_key "favourite_events", "events"
+  add_foreign_key "favourite_events", "users"
+  add_foreign_key "like_events", "events"
+  add_foreign_key "like_events", "users"
   add_foreign_key "profiles", "users", on_delete: :cascade
+  add_foreign_key "reports", "users", column: "reported_by_id"
+  add_foreign_key "user_followers", "users"
+  add_foreign_key "user_followers", "users", column: "followed_by_id"
 end
