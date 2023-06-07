@@ -33,7 +33,7 @@ class  Admin::HashtagsController < ApplicationController
   # PATCH/PUT /hashtags/1 or /hashtags/1.json
   def update
       if @hashtag.update(hashtag_params)
-        redirect_to admin_hashtag_url(@hashtag), notice: "Hashtag was successfully updated." 
+        redirect_to admin_hashtags_url, notice: "Hashtag was successfully updated." 
       else
         redirect_to edit_admin_hashtag_path, status: :unprocessable_entity , notice: "Hashtag could not be updated."
       end
@@ -52,7 +52,7 @@ class  Admin::HashtagsController < ApplicationController
     @hashtag.destroy
 
     respond_to do |format|
-      format.html { redirect_to hashtags_url, notice: "Hashtag was successfully destroyed." }
+      format.html { redirect_to admin_hashtags_url, notice: "Hashtag was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class  Admin::HashtagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hashtag_params
-      params.fetch(:hashtag, {})
+      params.require(:hashtag).permit(:name, :status)
     end
 end

@@ -12,7 +12,7 @@
           </h3>
           <% if @user.profile.image.present? %>
             <div style="display: flex; justify-content: center;">
-              <%= image_tag(current_user.profile.image, alt: 'Profile', class: 'rounded-circle', style: 'width: 200px; height: 200px;') %>
+              <%= image_tag(@user.profile.image, alt: 'Profile', class: 'rounded-circle', style: 'width: 200px; height: 200px;') %>
             </div>
           <% end %>
           <p class="card-text" style="display: flex; justify-content: center;">

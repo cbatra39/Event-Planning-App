@@ -3,29 +3,29 @@
     <div style="color: red">
       <h2><%= pluralize(event_category.errors.count, "error") %> prohibited this event_category from being saved:</h2>
 
-      <ul>
-        <% event_category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+        <ul>
+          <% event_category.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
   <% end %>
 
-  <div>
-    <%= form.label :event_category, style: "display: block" %>
-    <%= form.text_field :event_category , class:"form-control" %>
-  </div>
+      <div>
+        <%= form.label :event_category, style: "display: block" %>
+        <%= form.text_field :event_category , class:"form-control" %>
+      </div>
 
-<br>
+      <br>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status , class:"form-control" %>
-  </div>
+      <div>
+        <%= form.label :status, style: "display: block" %>
+        <%= form.text_field :status , class:"form-control" %>
+      </div>
 
 
-<br>
-  <div>
-    <%= form.submit class: "btn btn-primary"  %>
-  </div>
-<% end %>
+      <br>
+      <div>
+        <%= form.submit class: "btn btn-primary"  %>
+      </div>
+    <% end %>
