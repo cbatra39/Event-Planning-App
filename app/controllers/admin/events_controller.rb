@@ -16,10 +16,14 @@ class Admin::EventsController < ApplicationController
       @user = User.find_by(id: @event.user_id)
       if @user.status == "active"
         @event.update(is_approved: !@event.is_approved)
-        redirect_to admin_events_url
-      else
-        redirect_to admin_events_url, notice: "This user is suspended."
       end
+      if @event.is_approved == true
+        @event.update(event_status: "active")
+
+      else
+        @event.update(event_status:"suspended")
+      end
+      redirect_to admin_events_url
     end
     
     

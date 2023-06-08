@@ -38,7 +38,35 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                 
-                <table class="table table-borderless datatable" >
+                  <table class="table table-borderless datatable" >
+                  <thead>
+                    <tr>
+                    <th scope="col">Reported Events</th> 
+                    <th scope="col">Status</th>
+                    <th scope="col">Toggle Status</th>
+                    <th scope="col">Delete User</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <% reported_events = @reports.all.where(report_type: 1)%>
+                  <% reported_events.each do |r| %>
+                    <% event_name = Event.find_by(id: r.reported_id) %>
+                    <td><%= event_name %></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  <% end %>
+                  </tr>
+                </tbody>
+                </table>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+             <table class="table table-borderless datatable" >
                 <thead>
                     <tr>
                     <th scope="col">Reported Events</th> 
@@ -48,79 +76,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                <% reported_events = @reports.all.where(report_type: 1)%>
-                    <% reported_events.each do |r| %>
-                    <tr>
-                    <% event_name = Event.find_by(id: r.reported_id) %>
-                    <td><a href=""><%= event_name.title %></a></td>                    
-                    <% if r.status == 1 %>
-                    <td><span class="badge bg-warning">Reported</span></td>
-                    <% elsif r.status == 2%>
-                    <td><span class="badge bg-success">Approved</span></td>
-                     <% elsif r.status == 3%>
-                    <td><span class="badge bg-success">Inactive</span></td>
-                    <%else%>
-                    <td><span class="badge bg-success">Suspended</span></td>
-                    <% end %>
-                    
-                    </tr>
-                    <% end %>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                </tr>
+            
                 </tbody>
                 </table>
-
-
-                </div>
-
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                  <!-- Profile Edit Form -->
-                  <%= form_with( url: admin_profile_path, scope: :profile, method: :patch) do |f| %>
-                    
-                    <div class="row mb-3">
-                      <%= f.label :first_name , "FirstName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
-                      <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :first_name, value: current_user.profile.first_name, class: "form-control", id: "fullName" %>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <%= f.label :last_name , "LastName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
-                      <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :last_name, value: current_user.profile.last_name, class: "form-control", id: "fullName" %>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-                      <%= f.label :address , "Address" ,id:"Address", class: "col-md-4 col-lg-3 col-form-label" %>                      
-                      <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :address, value: current_user.profile.address, class: "form-control", id: "Address" %>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <%= f.label :phone_number , "Phone" , class: "col-md-4 col-lg-3 col-form-label" %>                      
-                      <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :phone_number , value: current_user.profile.phone_number , class: "form-control", id: "Phone" %>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <%= f.label :image , "profileImage" ,for:"yourUsername", class: "form-label" %>                      
-                      <div class="col-md-4 col-lg-3 col-form-label">
-                          <%= f.file_field :image, style: 'display: none;', id: 'upload-image-field' %>
-                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" onclick="document.getElementById('upload-image-field').click(); return false;">
-                              <i class="bi bi-upload"></i>
-                            </a>
-                      </div>
-                    </div>
-
-
-                    <div class="text-center">
-                      <%= f.submit "Save Changes" ,class:"btn btn-primary"%>
-
-                    </div>
-                  <% end %><!-- End Profile Edit Form -->
 
                 </div>
 
