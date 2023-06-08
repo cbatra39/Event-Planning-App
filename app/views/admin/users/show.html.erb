@@ -1,6 +1,8 @@
 <%= render partial: "shared/header" %>
 <%= render partial: "shared/sidebar" %>
+
 <main id="main" class="main">
+<<<<<<< HEAD
     <div class="pagetitle">
       <h1>User Details</h1>
     </div><!-- End Page Title -->
@@ -64,7 +66,83 @@
  
     </section>
 
+=======
+  <div class="pagetitle"></div><!-- End Page Title -->
+  <section class="section Users" style="display: flex; justify-content: center;">
+    <div class="card mb-3 d-inline-block">
+      <div class="row g-0">
+        <div class="card-body">
+          <h3 style="margin-top: 10px; font-weight: bold; display: flex; justify-content: center;">
+            <%= @user.profile.first_name %> <%= @user.profile.last_name %>
+          </h3>
+          <% if @user.profile.image.present? %>
+            <div style="display: flex; justify-content: center;">
+              <%= image_tag(@user.profile.image, alt: 'Profile', class: 'rounded-circle', style: 'width: 200px; height: 200px;') %>
+            </div>
+          <% end %>
+          <p class="card-text" style="display: flex; justify-content: center;">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <i class="fa-sharp fa-solid fa-envelope mr-2" style="color: lightgrey;"></i>
+                    <span class="text-lightgrey">Email</span>
+                  </td>
+                  <td><%= @user.email %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa-sharp fa-solid fa-phone mr-2" style="color: lightgrey;"></i>
+                    <span class="text-lightgrey">Phone Number</span>
+                  </td>
+                  <td><%= @user.profile.phone_number %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa-sharp fa-solid fa-location-dot mr-2" style="color: lightgrey;"></i>
+                    <span class="text-lightgrey">Address</span>
+                  </td>
+                  <td><%= @user.profile.address %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa-solid fa-cake-candles mr-2" style="color: lightgrey;"></i>
+                    <span class="text-lightgrey">Date of Birth</span>
+                  </td>
+                  <td><%= @user.profile.dob %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="fa-sharp fa-solid fa-circle-check mr-2" style="color: lightgrey;"></i>
+                    <span class="text-lightgrey">Joined</span>
+                  </td>
+                  <td><%= @user.created_at.strftime('%b %e, %Y') %></td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
+          <br>
+          <%= link_to 'Back', admin_users_path, style: 'float: left;', class:"btn btn-secondary" %>
+          <%= link_to "Send Email", "mailto:#{@user.email}", method: :get, style: 'float: right;', class:"btn btn-primary" %>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+>>>>>>> origin/development
 </main><!-- End #main -->
 
-
 <%= render partial: "shared/footer" %>
+
+
+
+
+
+
+
+
+
+
+
+

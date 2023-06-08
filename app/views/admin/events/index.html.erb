@@ -34,19 +34,21 @@
                 <tbody>
                     <% @events.each do |e| %>
                     <tr>
-                    <td><%= link_to e.title, admin_event_path(e) %></td>  
-                   
-                    <% if e.is_approved == false %>
-                        <% s = "suspended" %>
+                    <td><a href="<%= admin_event_path(e) %>"><%= e.title %></a></td>                    
+                    <% if e.is_approved == false && e.event_status== "active" %>
+                        <% s = "Pending" %>
+                        <td><span class="badge bg-warning"><%= s %></span></td>
+                    <% elsif e.is_approved == false && e.event_status== "suspended" %>
+                        <% s = "Suspended" %>
                         <td><span class="badge bg-danger"><%= s %></span></td>
                     <% else %>
                         <% s = "active" %>
                     <td><span class="badge bg-success"><%= s %></span></td>
                     <% end %>
                     <td><% if e.is_approved == true %>
-                      <%= link_to "",  update_status_admin_event_path(e),data:{'turbo-method': :patch}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
+                      <%= link_to "",  update_status_admin_event_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this event?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
                     <% else %>
-                      <%= link_to "", update_status_admin_event_path(e),data:{'turbo-method': :patch}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
+                      <%= link_to "", update_status_admin_event_path(e),data:{'turbo-method': :patch, turbo_confirm: 'Are you sure you want to restore this event?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
                     <% end %>
                     </td>
                     <td><%= link_to "",admin_event_path(e),data:{turbo_method: :delete,turbo_confirm: 'Are you sure?'}, class: "fa-solid fa-trash"%></td>

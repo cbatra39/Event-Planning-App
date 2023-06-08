@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all.where.not(is_admin:true)
+    @users = User.all.where.not(is_admin: true)
   end
 
   # GET /users/1 or /users/1.json
@@ -13,13 +13,12 @@ class Admin::UsersController < ApplicationController
 
   def update_status
     @user = User.find(params[:id])
-    @user.update(status: @user.status=="active" ? "inactive" : "active")
-    if(@user.status == "inactive")
+    @user.update(status: @user.status=="active" ? "suspended" : "active")
+    if(@user.status == "suspended")
       @events = Event.all.where(user_id:params[:id])
       AccountSuspensionMailer.suspended(@user).deliver_now
       @events.each do |e|
         e.update(is_approved:false)
-    
       end
     end
     redirect_to admin_users_url
@@ -28,8 +27,8 @@ class Admin::UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
     AccountSuspensionMailer.deleted(@user).deliver_now
+    @user.destroy
     respond_to do |format|
       format.html { redirect_to admin_users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }

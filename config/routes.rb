@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     patch '/profile', to: 'home#update_profile', as: :update_profile
     get 'forgot-password', to: 'auth/passwords#new', as: :forgot_password
     post 'forgot/send_mail',to: "auth/passwords#passwordreset", as: :send_reset_instructions
+    get 'reports', to: "reports#index" ,as: :reports
     resources :hashtags do
       member do
         patch 'update_status'

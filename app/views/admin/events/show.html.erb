@@ -6,50 +6,70 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Events</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
-          <li class="breadcrumb-item">Events </li>
-          <li class="breadcrumb-item active">View Event</li>
-        </ol>
-      </nav>
+      <h1>Event Detail</h1>
+      
     </div><!-- End Page Title -->
     <section class="section Users">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 ">
+        
               <div class="card recent-sales overflow-auto">
-                <div class="card-body">
-                  <h2 class="card-title"><%= @event.title%></h2>
-                    <h4><%=@event.description%></h4>
-                       <table class="table table-stripped">
-                          <tbody>
-                            <tr><td>Category</td><td><%=EventCategory.find_by(id:@event.event_categories_id).event_category%></td></tr>
-                            <tr><td>Location</td><td><%=@event.location%></td></tr>
-                            <tr><td>Start </td><td><%=@event.start_date%> at <%=@event.start_time.strftime("%I:%M%p")%></td></tr>
-                            <tr><td>End </td><td><%=@event.end_date%> at <%=@event.end_time.strftime("%I:%M%p")%></td></tr>                            
-                            <tr><td>Approved</td> 
-                              <%if @event.is_approved == false%>
-                                <td> <%="Disapproved"%></td>
-                                <%else%>
-                              <td>  <%="Approved"%></td>
-                              <%end%>  
-                            </tr>
+                <div class="card-body ">
+                  <h3  style="margin-top: 10px; font-weight: bold; "><%= @event.title%></h3>
+                  
+                                        
+                <p class="card-text" style="display: flex; justify-content: center;">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Location</span>
+                  </td>
+                  <td><%= @event.location %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Category</span>
+                  </td>
+                  <td><% eventid = @event.event_categories_id%>
+                  <% cat_name = EventCategory.find_by(id: eventid)%>
+                  <%= cat_name.event_category%>
+                  </td>
 
-                            <tr><td>Hosted By</td><td><%=User.find_by(id:@event.user_id).email%></td></tr>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Start</span>
+                  </td>
+                  <td><%= @event.start_date.strftime('%b %e, %Y') %> <%= @event.start_time.strftime("%I:%M%P") %> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">End</span>
+                  </td>
+                  <td><%= @event.end_date.strftime('%b %e, %Y') %> <%= @event.end_time.strftime("%I:%M%P") %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Description</span>
+                  </td>
+                  <td><%= @event.description %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Hosted by</span>
+                  </td>
+                  <td><% user = User.find_by(id: @event.user_id) %><%= user.email%></td>
+                </tr>
+              </tbody>
+            </table>
+          </p>  
+          <iframe width="500" height= "500" src="https://maps.google.com/maps?q=<%=@event.latitude%>,<%=@event.longitude%>&hl=es;z=14&output=embed"></iframe>
 
-                          </tbody>
-                       </table>    
-                          <iframe width="500" height= "500" src="https://maps.google.com/maps?q=<%=@event.latitude%>,<%=@event.longitude%>&hl=es;z=14&output=embed">
-
-                          </iframe>
-                    
-                    <div>
-                      <%= link_to "Back", admin_events_path, class:"btn btn-secondary"%>
-
-                    </div>
-
-
+          <div>
+          <br>
+            <%= link_to "Back", admin_events_path %>
+         </div>
                 </div>
               </div>
           </div>

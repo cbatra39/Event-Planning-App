@@ -5,6 +5,12 @@ class Admin::HomeController < ApplicationController
     end
   
     def profile
+      @user = current_user
+      @resource = @user
+      @resource_name = :user 
+      render 'profile', resource: @resource, resource_name: @resource_name
+
+     
     end
 
     def update_profile

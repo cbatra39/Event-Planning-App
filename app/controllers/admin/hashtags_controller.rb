@@ -19,11 +19,12 @@ class  Admin::HashtagsController < ApplicationController
 
   # POST /hashtags or /hashtags.json
   def create
+    
     @hashtag = Hashtag.new(hashtag_params)
       if @hashtag.save
-        redirect_to admin_hashtags_url, notice: "Hashtag was successfully created." 
+        redirect_to admin_hashtag_url(@hashtag), status: :created
       else
-        redirect_to new_admin_hashtag_path ,status: :unprocessable_entity 
+        redirect_to new_admin_hashtag_path , status: :unprocessable_entity ,status: :unprocessable_entity 
       end
     
   end
@@ -31,11 +32,19 @@ class  Admin::HashtagsController < ApplicationController
   # PATCH/PUT /hashtags/1 or /hashtags/1.json
   def update
       if @hashtag.update(hashtag_params)
-        redirect_to admin_hashtags_url, notice: "Hashtag was successfully updated." 
+        redirect_to admin_hashtags_url
       else
-        redirect_to edit_admin_hashtag_path, status: :unprocessable_entity , notice: "Hashtag could not be updated."
+        redirect_to edit_admin_hashtag_path, status: :unprocessable_entity
       end
   end
+
+
+  def update_status
+    @hashtag = Hashtag.find(params[:id])
+    @hashtag.update(status: @hashtag.status==true ? false : true)
+    redirect_to admin_hashtags_url
+  end
+  
 
   # DELETE /hashtags/1 or /hashtags/1.json
   def destroy
@@ -55,6 +64,7 @@ class  Admin::HashtagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hashtag_params
-      params.require(:hashtag).permit(:name, :status)
+      params.require(:hashtags).permit(:name, :status)
     end
+    
 end

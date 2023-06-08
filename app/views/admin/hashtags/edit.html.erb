@@ -1,8 +1,5 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render partial: "shared/header" %>
 <%= render partial: "shared/sidebar" %>
-
 
 <main id="main" class="main">
     <div class="pagetitle">
@@ -10,49 +7,59 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
-          <li class="breadcrumb-item">Hashtag Management</li>
-          <li class="breadcrumb-item active">Hashtags</li>
+          <li class="breadcrumb-item">Hashtags Management</li>
+          <li class="breadcrumb-item active">Hashtag</li>
         </ol>
       </nav>
-    </div>
-     <section class="section Users">
-      <h1>Edit hashtag</h1>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h2 class="card-title">Edit Hashtag</h2>
+                  <%= form_with(model: @hashtag, url: admin_hashtag_path(@hashtag)) do |form| %>
+                    <% if @hashtag.errors.any? %>
+                      <div style="color: red">
+                        <h2><%= pluralize(@hashtag.errors.count, "error") %> prohibited this event_category from being saved:</h2>
 
-        <%= form_with(model:@hashtag,url:admin_hashtag_path) do |f| %>
-          <% if @hashtag.errors.any? %>
-            <div style="color: red">
-              <h2><%= pluralize(@hashtag.errors.count, "error") %> prohibited this hashtag from being saved:</h2>
+                        <ul>
+                          <% @hashtag.errors.each do |error| %>
+                            <li><%= error.full_message %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
 
-              <ul>
-                <% @hashtag.errors.each do |error| %>
-                  <li><%= error.full_message %></li>
-              
-              
-                <% end %>
-              </ul>
+                    <div>
+                      <%= form.label :name, style: "display: block" %>
+                      <%= form.text_field :name , class:"form-control" %>
+                    </div>
+
+                  <br>
+
+                    <div>
+                      <%= form.label :status, style: "display: block" %>
+                      <%= form.text_field :status , class:"form-control" %>
+                    </div>
+
+
+                  <br>
+                    <div>
+                      <%= form.submit class: "btn btn-primary"  %>
+                    </div>
+                  <% end %>
+                    <br>
+                    <div>
+                      <%= link_to "Back", admin_hashtags_path %>
+                    </div>
+                </div>
               </div>
-              <% end %> 
-              <div>
-                <%= f.label :name, style: "display: block" %>
-                <%= f.text_field :name, class:"form-control mb-3" %>
-              </div>
-              <div>
-                <%= f.submit class:"btn btn-primary"%>
-              </div>
-        <% end %>
-
-        <br>
-
-        <div>
-          <%= link_to "Back", admin_hashtags_path ,class:"btn btn-secondary"%>
+          </div>
         </div>
-
-
     </section>
 
 </main><!-- End #main -->
 <%= render partial: "shared/footer" %>
-
-
 
 

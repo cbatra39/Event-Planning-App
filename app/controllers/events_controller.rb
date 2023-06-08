@@ -326,11 +326,6 @@ private
 def build_event_data(events)
   events.map do |event|
     category_name = EventCategory.find(event.event_categories_id).event_category
-<<<<<<< HEAD
-
-    hashtags = event.hashtags.pluck(:name)
-
-=======
     user = Profile.find_by(user_id: event.user_id)
     hashtags = event.hashtags.pluck(:name)
     if user.image.present?
@@ -338,7 +333,6 @@ def build_event_data(events)
     else
       profileimage = nil
     end
->>>>>>> origin/development
     {
       id: event.id,
       title: event.title,
@@ -356,14 +350,10 @@ def build_event_data(events)
       event_category_id: event.event_categories_id,
       event_category_name: category_name,
       hashtags: hashtags,
-<<<<<<< HEAD
-      image_url: event.image.present? ? url_for(event.image) : nil
-=======
       user_name: user.first_name + " " + user.last_name,
       image_url: event.image.present? ? url_for(event.image) : nil,
       user_profile_image: profileimage
      
->>>>>>> origin/development
     }
   end
 end

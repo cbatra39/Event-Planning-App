@@ -1,8 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_one :event_categories,foreign_key: "event_categories_id", dependent: :delete
-  has_many :event_hashtags,foreign_key: "event_id", dependent: :destroy
+  has_many :event_categories
+  has_many :event_hashtags, foreign_key: 'event_id', dependent: :destroy
   has_many :hashtags, through: :event_hashtags
 
   has_many :like_events
@@ -18,5 +18,4 @@ class Event < ApplicationRecord
   validates :end_time, presence: true
   validates :description, presence: true
   validates :event_categories_id, presence: true
- 
 end
