@@ -8,7 +8,8 @@ class Admin::HomeController < ApplicationController
       @user = current_user
       @resource = @user
       @resource_name = :user 
-      @settings = AdminSetting.last
+      @settings = AdminSetting.last.settings
+      @options_all =[["Inactive", 0], ["Active", 1],  ["Unverified", 2],["Verified", 3],["suspended", 4]]
       render 'profile', resource: @resource, resource_name: @resource_name
 
      

@@ -156,17 +156,17 @@
                         <div class="mb-3 row">
                          <label class="col-sm-3 col-form-label">User Status</label>
                          <div class="col-sm-9">
-                          <%= f.select( :user_status, [["Inactive", 0], ["Active", 1], ["Verified", 3], ["Unverified", 2],["suspended", 4]],{},{:class =>"form-select"})%>
+                          <%= f.select :user_status, options_for_select(@options_all,@options_all[@settings["user_status"].to_i]),{},{:class =>"form-select"}%>
                           </div>
                         </div>
                         <div class="mb-3 row">
                           <label for="inputRadius" class="col-sm-3 col-form-label">Radius</label>
                           <div class="col-sm-9">
-                           <%= f.number_field :radius,class:"form-control",id:"inputRadius"%>
+                           <%= f.number_field :radius,class:"form-control",id:"inputRadius",value:@settings["radius"]%>
                           </div>
                         </div>
                         <div class="form-check">
-                        <%= f.check_box :notifications ,class:"form-check-input"%>
+                        <%= f.check_box :notifications ,class:"form-check-input",checked:@settings["notifications"]%>
                           <label class="form-check-label" for="proOffers">
                             Enable Notifications
                           </label>
