@@ -67,6 +67,9 @@ Rails.application.routes.draw do
     get 'forgot-password', to: 'auth/passwords#new', as: :forgot_password
     post 'forgot/send_mail',to: "auth/passwords#passwordreset", as: :send_reset_instructions
     get 'reports', to: "reports#index" ,as: :reports
+    patch 'reports/update_status/:id', to: "reports#update_status" 
+    patch 'reports/disapprove/:id', to: "reports#disapprove",as: :reports_disapprove
+    get 'reports/:id', to: "reports#show" ,as: :report
     resources :hashtags do
       member do
         patch 'update_status'
