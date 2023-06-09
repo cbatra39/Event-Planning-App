@@ -8,6 +8,7 @@ class Admin::HomeController < ApplicationController
       @user = current_user
       @resource = @user
       @resource_name = :user 
+      @settings = AdminSetting.last
       render 'profile', resource: @resource, resource_name: @resource_name
 
      
@@ -23,10 +24,18 @@ class Admin::HomeController < ApplicationController
         end
     end
       
-      private
-      
+
+    def update_settings
+        @settings = AdminSetting.last
+        @settings.settings =settings_params
+        @settings.save
+        redirect_to admin_profile_path
+    end
+    private  
       def profile_params
         params.require(:profile).permit(:first_name, :last_name,:dob, :phone_number, :address, :image)
       end
-    
+      def settings_params
+        params.permit(:user_status,:radius,:notifications)
+      end
 end

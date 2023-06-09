@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_094227) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -40,6 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_094227) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "admin_settings", force: :cascade do |t|
+    t.hstore "settings"
   end
 
   create_table "event_attendees", force: :cascade do |t|
@@ -157,10 +162,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_094227) do
     t.boolean "is_admin", default: false
     t.integer "otp", default: 0
     t.boolean "otp_verified", default: false
-    t.string "status", default: "active"
     t.datetime "otp_generated_at"
     t.string "device_token"
     t.string "device_type"
+    t.integer "status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
