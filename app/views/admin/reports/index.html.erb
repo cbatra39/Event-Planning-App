@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
           <li class="breadcrumb-item">Reports Management</li>
-          <li class="breadcrumb-item active">Reports</li>
+          <li class="breadcrumb-item active">Disapporve Report</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -17,7 +17,7 @@
       <div class="row">
         
 
-        <div class="col-xl-8">
+        <div class="col-xl-12">
 
           <div class="card">
             <div class="card-body pt-3">
@@ -44,21 +44,33 @@
                     <th scope="col">Reported Events</th> 
                     <th scope="col">Status</th>
                     <th scope="col">Toggle Status</th>
-                    <th scope="col">Delete User</th>
+                    <th scope="col">Delete Event</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
+                
                   <% reported_events = @reports.all.where(report_type: 1)%>
                   <% reported_events.each do |r| %>
+                    <tr>
                     <% event_name = Event.find_by(id: r.reported_id) %>
-                    <td><%= event_name %></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= link_to event_name.title, admin_report_path(r.id)%></td>
+                    <td>
+                      <% if r.status == 1 %>
+                        <span class="badge bg-warning">Reported</span>
+                        <% elsif r.status == 2%>
+                        <span class="badge bg-success">Approved</span>
+                        <% elsif r.status == 0%>
+                        <span class="badge bg-danger">Disapporved</span>
+                      <%else%>
+                        <span class="badge bg-danger">Event Inactive</span>
+                      <% end %>
+                    </td>
+                    <td><%= link_to "",admin_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this user?'} ,class:"fa-solid fa-arrow-right-arrow-left"%></td>
+                    <td><%= link_to "",admin_reports_disapprove_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to disapprove this report?'} ,class:"fa-solid fa-thumbs-down"%></td>
+                    </tr>  
                   <% end %>
-                  </tr>
+                  
                 </tbody>
                 </table>
 
@@ -66,23 +78,40 @@
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-             <table class="table table-borderless datatable" >
-                <thead>
+                  
+                  <table class="table table-borderless datatable" >
+                  <thead>
                     <tr>
-                    <th scope="col">Reported Events</th> 
+                    <th scope="col">Reported Users</th> 
                     <th scope="col">Status</th>
                     <th scope="col">Toggle Status</th>
+                    <th scope="col">Disapporve Report</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-                </tr>
-            
+              
+                  <% reported_events = @reports.all.where(report_type: 2)%>
+                  <% reported_events.each do |r| %>
+                      <tr>
+                    <% user = User.find_by(id: r.reported_id) %>
+                    <td><%= link_to user.email, admin_report_path(r.id)%></td>
+                    <td>
+                        <% if r.status == 1 %>
+                          <span class="badge bg-warning">Reported</span>
+                        <% elsif r.status == 2%>
+                          <span class="badge bg-success">Approved</span>
+                        <% elsif r.status == 0%>
+                           <span class="badge bg-danger">Disapporved</span>
+                        <%else%>
+                          <span class="badge bg-danger">User Inactive</span>
+                        <% end %>
+                    </td>
+                    <td><%= link_to "",admin_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this user?'} ,class:"fa-solid fa-arrow-right-arrow-left"%></td>
+                    <td><%= link_to "",admin_reports_disapprove_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to disapprove this report?'} ,class:"fa-solid fa-thumbs-down"%></td>
+                    </tr>
+                  <% end %>
+                  
                 </tbody>
                 </table>
 

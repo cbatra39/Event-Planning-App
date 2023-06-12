@@ -8,4 +8,12 @@
 categories = ["Social Events", "Corporate Events", "Cultural and Artistic Events", "Sports and Recreation Events", "Educational and Academic Events"]
 categories.each do |category|
     EventCategory.create(event_category: category, status: true)
+
+
+AdminSetting.create(settings: {
+        "user_status" => 0,
+        "notification" => true,
+        "radius" => 5
+})
+      
 end
