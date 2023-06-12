@@ -11,6 +11,14 @@ module Responses
     render json: response, status: :ok
   end
 
+  def success_201(message, status_code: 201)
+    render json: {
+      status: status_code,
+      message: message
+    }, status: status_code
+  end
+  
+
 
   def error(message, status_code: 422)
     render json: {

@@ -5,7 +5,7 @@ class CreateReports < ActiveRecord::Migration[7.0]
       t.integer :reported_id
       t.integer :report_type  
       t.text :description
-      t.boolean :status, default: false
+      t.integer :status, default: 1
 
       t.timestamps
     end

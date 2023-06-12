@@ -3,10 +3,11 @@ Rails.application.routes.draw do
   
   devise_for :users, controllers: {
     sessions: 'users/sessions',
+    confirmations: 'users/confirmations' ,
     registrations: 'users/registrations'
   }
 
-  
+  # post '/users/confirmations', to: 'users/confirmations#create', as: 'confirm_user_account'
   post '/report', to: 'events#report'
   
   get '/sort_events/start_date', to: 'events#sort_events'
@@ -30,7 +31,12 @@ Rails.application.routes.draw do
   put 'events/:id/' ,to:'events#update'
   delete 'events/:id/' ,to:'events#destroy' 
   get '/user_events', to: 'events#show_all' 
+  get '/favourite_events', to: 'events#favorite_events'
   get '/event_categories', to: 'events#event_categories'
+  get '/events_nearby', to: 'events#events_nearby'
+  get '/events_details/:id', to: 'events#events_details'
+  get '/user_details/:id', to: 'events#user_details'
+  get '/search_events/:search_by', to: 'events#search_events'
 
 
   get '/sort_events', to: 'events#sort_events'
