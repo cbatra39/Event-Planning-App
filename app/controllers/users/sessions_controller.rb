@@ -8,14 +8,14 @@ class Users::SessionsController < Devise::SessionsController
  
 
   def respond_with(resource, options={})
-   
     user = User.find_by(email: resource[:email])
-    if user && user.status == "active"
+  
+    if user && user.active? && user.is_verified?
       success("User signed in successfully")
-    elsif user && user.status == "inactive"
+    elsif user && user.suspended?
       error_403("Your account has been disabled")
     else
-    error("Invalid email or password")
+      error("Invalid email or password")
     end
   end
   

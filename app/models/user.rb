@@ -6,15 +6,21 @@ class User < ApplicationRecord
   has_many :favourite_events
   has_many :user_followers
   
-  
+  enum status: {
+  inactive: 0,
+  active: 1,
+  unverified: 2,
+  verified: 3,
+  suspended: 4
+  }
   
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable, :validatable, :confirmable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+  
+  validates :email, presence: true, uniqueness: true
 
-         validates :email, presence: true, uniqueness: true
-        
   def jwt_payload
-    super
+  super
   end
-end
+  end

@@ -4,5 +4,7 @@ class UserMailer < ApplicationMailer
       @otp = otp
       mail(to: @user.email, subject: 'OTP for Password Reset')
     end
-  end
+
+  
+end
   

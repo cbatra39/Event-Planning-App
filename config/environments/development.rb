@@ -43,6 +43,7 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+  config.action_mailer.perform_deliveries = true
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
@@ -57,21 +58,26 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
 
+  config.hosts << "6c1a-112-196-113-2.ngrok-free.app"
+
   # config.hosts =  ENV['HOSTS'] 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { host: 'localhost', port: ENV['PORT'] }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
+  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => 'b3af9363580592',
-    :password => '9a3a0c70a839a2',
-    :address => 'sandbox.smtp.mailtrap.io',
-    :domain => 'sandbox.smtp.mailtrap.io',
-    :port => '2525',
-    :authentication => :cram_md5
-  }
+  :user_name => 'a55699a510d9b8',
+  :password => '2ae75d4ad68c37',
+  :address => 'sandbox.smtp.mailtrap.io',
+  :host => 'sandbox.smtp.mailtrap.io',
+  :port => '2525',
+  :authentication => :cram_md5
+}
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
