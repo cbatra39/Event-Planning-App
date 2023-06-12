@@ -69,15 +69,16 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
   
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  :user_name => 'a55699a510d9b8',
-  :password => '2ae75d4ad68c37',
-  :address => 'sandbox.smtp.mailtrap.io',
-  :host => 'sandbox.smtp.mailtrap.io',
-  :port => '2525',
-  :authentication => :cram_md5
-}
+    :user_name => '6f420a219fe965',
+    :password => '75d84366626488',
+    :address => 'sandbox.smtp.mailtrap.io',
+    :host => 'sandbox.smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
