@@ -10,8 +10,8 @@ class Event < ApplicationRecord
 
   enum event_status:{
     active: 1,
-    inactive: 2,
-    completed: 3
+    suspended: 2,
+    completed: 3,
   }
   
 
@@ -25,8 +25,4 @@ class Event < ApplicationRecord
   validates :end_time, presence: true
   validates :description, presence: true
   validates :event_categories_id, presence: true
-<<<<<<< HEAD
-=======
-
->>>>>>> bb9447c25f142fb8d981c52dbe98e724b482177a
 end

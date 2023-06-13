@@ -13,13 +13,15 @@ class Admin::UsersController < ApplicationController
 
   def update_status
     @user = User.find(params[:id])
-    @user.update(status: @user.status=="active" ? "suspended" : "active")
-    if(@user.status == "suspended")
+    new_status = @user.status == 'active' ? 'suspended' : 'active'
+    @user.update(status: new_status.to_sym)
+    if(@user.status == 'suspended')
       @events = Event.all.where(user_id:params[:id])
-      AccountSuspensionMailer.suspended(@user).deliver_now
       @events.each do |e|
         e.update(is_approved:false)
+        e.update( event_status: 'suspended'.to_sym)
       end
+      AccountSuspensionMailer.suspended(@user).deliver_later
     end
     redirect_to admin_users_url
   end

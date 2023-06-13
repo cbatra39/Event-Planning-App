@@ -289,23 +289,18 @@ end
   def report_event(type)
     event = Event.find_by(id: params[:id])
     description = params[:description]
-
     if event.nil?
       error_404("Event not found")
       return
     end
-
     if event.user_id == current_user.id
       error("You cannot report your own event")
       return
     end
-   
     if Report.exists?(reported_id: event.id, reported_by_id: current_user.id, report_type: type)
       error("You have already reported this event")
       return
     end
-  
-
 
     reported_event = Report.create(reported_id: event.id, reported_by_id: current_user.id,report_type: type, description: description)
     if reported_event.save
@@ -330,13 +325,14 @@ def report_user(type)
       error("You have already reported this event")
       return
     end
-    reported_user = Report.create(reported_id: user.id, reported_by_id: current_user.id,report_type:type, description: description)
+    reported_user = Report.create(reported_id: user.id, reported_by_id: current_user.id,report_type: type, description: description)
     if reported_user.save
       success("User reported successfully")
     else
       error("Failed to report the User")
     end
  end
+  
   
 
  def mark_favourite

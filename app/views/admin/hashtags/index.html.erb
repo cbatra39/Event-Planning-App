@@ -20,8 +20,11 @@
         <div class="col-12">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                <%= link_to "", new_admin_hashtag_path,title:"Add new category",style: "margin-left: 1090px;  margin-top: 10px;"  ,class:"fa-solid fa-user-plus"%>
-                  <h5 class="card-title">Hashtag <span>| List</span></h5>
+                  <div style="display: flex; align-items: center;">
+                    <h5 class="card-title" style="margin-bottom: 10;">Hashtag <span>| List</span></h5>
+                      <%= link_to "Add Hashtag", new_admin_hashtag_path, style: "margin-left: 890px;", class: "btn btn-primary" %>
+                  </div>
+
 
                 <table class="table table-borderless datatable" >
 

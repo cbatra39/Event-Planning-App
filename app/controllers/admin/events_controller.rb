@@ -17,11 +17,11 @@ class Admin::EventsController < ApplicationController
       if @user.status == "active"
         @event.update(is_approved: !@event.is_approved)
       end
-      if @event.is_approved == true
-        @event.update(event_status: "active")
+      if @event.is_approved == true && @event.event_status == 'suspended'
+        @event.update(event_status: :active)
 
       else
-        @event.update(event_status:"suspended")
+        @event.update(is_approved: false, event_status: :suspended)
       end
       redirect_to admin_events_url
     end

@@ -16,7 +16,7 @@
               <div class="card recent-sales overflow-auto">
                 <div class="card-body ">
                   <h3  style="margin-top: 10px; font-weight: bold; ">
-                  <%if @data.title?%>
+                  <%if @report.report_type == 1 %>
                       <%= @data.title%>
                   <%else%>
                       <%= @data.email%>
@@ -46,12 +46,11 @@
                   <td>
                     <span class="text-lightgrey">Report Status</span>
                   </td>
-                  <td><% if @report.status == 1 %>
+                  <td><% if @report.status == 'reported' %>
                           <span class="badge bg-warning">Reported</span>
-                        <% elsif @report.status == 2%>
+                        <% elsif @report.status == 'approved'%>
                           <span class="badge bg-success">Approved</span>
-                        <% elsif @report.status == 0%>
-                           <span class="badge bg-danger">Disapporved</span>
+                       
                         <%else%>
                           <span class="badge bg-danger">Inactive</span>
                         <% end %></td>
