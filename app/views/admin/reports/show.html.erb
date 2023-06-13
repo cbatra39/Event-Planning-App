@@ -15,11 +15,20 @@
         
               <div class="card recent-sales overflow-auto">
                 <div class="card-body ">
+<<<<<<< HEAD
                   <h3  style="margin-top: 10px; font-weight: bold; "><%if @data.email.present?%>
                                 <%= @data.email%>
                                 <%else%>
                                 <%= @data.title%>
                                 <%end%>
+=======
+                  <h3  style="margin-top: 10px; font-weight: bold; ">
+                  <%if @report.report_type == 1 %>
+                      <%= @data.title%>
+                  <%else%>
+                      <%= @data.email%>
+                  <%end%>
+>>>>>>> origin/development
                   </h3>
                   
                                         
@@ -45,12 +54,20 @@
                   <td>
                     <span class="text-lightgrey">Report Status</span>
                   </td>
+<<<<<<< HEAD
                   <td><% if @report.status == 1 %>
                           <span class="badge bg-warning">Reported</span>
                         <% elsif @report.status == 2%>
                           <span class="badge bg-success">Approved</span>
                         <% elsif @report.status == 0%>
                            <span class="badge bg-danger">Disapporved</span>
+=======
+                  <td><% if @report.status == 'reported' %>
+                          <span class="badge bg-warning">Reported</span>
+                        <% elsif @report.status == 'approved'%>
+                          <span class="badge bg-success">Approved</span>
+                       
+>>>>>>> origin/development
                         <%else%>
                           <span class="badge bg-danger">Inactive</span>
                         <% end %></td>
@@ -91,4 +108,7 @@
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/development

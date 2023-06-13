@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
       if @profile.nil?
         error_404("Profile not found")
       else
+        follower_count = UserFollower.where(user_id: current_user.id).count
         data = {
           "dob": @profile.dob,
           "phone_number": @profile.phone_number,
@@ -15,7 +16,8 @@ class ProfilesController < ApplicationController
           "first_name": @profile.first_name,
           "last_name": @profile.last_name,
           "email": current_user.email,
-          "profile_image": @profile.image.present? ? url_for(@profile.image) : nil
+          "profile_image": @profile.image.present? ? url_for(@profile.image) : nil,
+          "follower_count": follower_count.present? ? follower_count : nil
         }
     
         success(data: data)

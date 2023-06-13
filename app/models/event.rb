@@ -1,12 +1,19 @@
 class Event < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_many :event_categories
+  reverse_geocoded_by :latitude, :longitude
+  has_one :event_categories
   has_many :event_hashtags, foreign_key: 'event_id', dependent: :destroy
   has_many :hashtags, through: :event_hashtags
-
   has_many :like_events
   has_many :liking_users, through: :like_events, source: :user
+
+  enum event_status:{
+    active: 1,
+    suspended: 2,
+    completed: 3,
+  }
+  
 
   validates :title, presence: true
   validates :location, presence: true

@@ -41,12 +41,12 @@
                     <td><%= link_to "User",admin_user_path(u)%></td>
                     <% end %>
                     <td><%= u.email %></td>
-                    <% if u.status == "suspended" %>
-                    <td><span class="badge bg-danger"><%= u.status %></span></td>
+                    <% if u.status == 'suspended' %>
+                    <td><span class="badge bg-danger"><%= "Suspended" %></span></td>
                     <% else %>
-                    <td><span class="badge bg-success"><%= u.status %></span></td>
+                    <td><span class="badge bg-success"><%= "Active" %></span></td>
                     <% end %>
-                    <td><% if u.status == "active" %>
+                    <td><% if u.status == 'active' %>
                       <%= link_to "",  update_status_admin_user_path(u),data:{'turbo-method': :patch, turbo_confirm: 'Are you sure you want to suspend this user?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
                     <% else %>
                       <%= link_to "", update_status_admin_user_path(u),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this user?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
@@ -62,7 +62,7 @@
                 </div>
 
               </div>
-            </div><!-- End Recent Sales -->
+            </div>
 
       </div>
     </section>

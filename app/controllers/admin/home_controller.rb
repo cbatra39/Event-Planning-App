@@ -6,6 +6,9 @@ class Admin::HomeController < ApplicationController
   
     def profile
       @user = current_user
+      @resource_name = :user 
+      @settings = AdminSetting.last.settings
+      @options_all =[["Inactive", 0], ["Active", 1],["suspended", 4]]
       @resource = @user
       @resource_name = :user 
       @settings = AdminSetting.last.settings
@@ -24,6 +27,18 @@ class Admin::HomeController < ApplicationController
           render :profile
         end
     end
+
+
+    
+
+  
+
+    def update_settings
+      @settings = AdminSetting.last
+      @settings.settings =settings_params
+      @settings.save
+      redirect_to admin_profile_path
+    end
       
 
     def update_settings
@@ -36,6 +51,7 @@ class Admin::HomeController < ApplicationController
       def profile_params
         params.require(:profile).permit(:first_name, :last_name,:dob, :phone_number, :address, :image)
       end
+    
       def settings_params
         params.permit(:user_status,:radius,:notifications)
       end

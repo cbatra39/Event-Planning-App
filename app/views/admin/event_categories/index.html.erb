@@ -20,13 +20,11 @@
         <div class="col-12">
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                <div class ="row">
-                  <div class ="col-3">
-                    <h5 class="card-title">Category <span>| List</span></h5>
-                  </div>
-                  <div class="col-8"></div>
-                  <div class="col-1 p-3"><%= link_to "", new_admin_event_category_path,title:"Add new category",class:"fa-solid fa-user-plus"%></div>
-                  
+                   <div style="display: flex; align-items: center;">
+                     <h5 class="card-title" style="margin-bottom: 10;">Categories <span>| List</span></h5>
+                     <%= link_to "Add Category", new_admin_event_category_path, style: "margin-left: 860px;", class: "btn btn-primary" %>
+                   </div>
+
 
                 <table class="table table-borderless datatable" >
 
@@ -44,10 +42,10 @@
                     <tr>
                       <td><%= e.event_category %></a></td>                    
                       <% if e.status == false %>
-                        <% cat_status = "disapproved"%>
-                        <td><span class="badge bg-danger"><%= cat_status %></span></td>
+                        <% cat_status = "Inactive"%>
+                        <td><span class="badge bg-danger"><%= link_to cat_status ,update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this category?'} , style: "color: white;"%></span></td>
                       <% else %>
-                        <% cat_status = "approved"%>
+                        <% cat_status = "Active"%>
                       <td><span class="badge bg-success"><%= cat_status %></span></td>
                       <% end %>
                       <td><% if e.status == true %>

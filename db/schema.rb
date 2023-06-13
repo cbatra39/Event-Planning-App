@@ -79,7 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
     t.float "latitude"
     t.float "longitude"
     t.boolean "is_approved", default: false
-    t.string "event_status", default: "active"
     t.date "start_date"
     t.time "start_time"
     t.date "end_date"
@@ -89,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
     t.bigint "event_categories_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_status"
     t.index ["event_categories_id"], name: "index_events_on_event_categories_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -166,6 +166,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
     t.string "device_token"
     t.string "device_type"
     t.integer "status"
+<<<<<<< HEAD
+=======
+    t.integer "is_verified", default: 2
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+>>>>>>> origin/development
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

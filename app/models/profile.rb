@@ -13,10 +13,5 @@ class Profile < ApplicationRecord
             errors.add(:image, "Image format is not correct. Only JPEG and PNG formats are allowed.")
         end
       end
-      def error(message = nil, errors: [])
-        response = { status: 422, errors: errors }
-        response[:message] = message if message.present?
-        
-        render json: response, status: :unprocessable_entity
-      end
+     
 end

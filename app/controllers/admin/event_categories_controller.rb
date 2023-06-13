@@ -47,6 +47,14 @@ class Admin::EventCategoriesController < ApplicationController
   def update_status
     @event_category = EventCategory.find(params[:id])
     @event_category.update(status: @event_category.status==true ? false : true)
+    @events = Event.where(event_categories_id: @event_category.id)
+    @events.each do |e|
+      if @event_category.status == false
+          e.update(is_approved: false, event_status: :suspended) 
+      else
+        e.update(is_approved: true, event_status: :active) 
+      end
+    end
     redirect_to admin_event_categories_url
   end
   
