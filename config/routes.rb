@@ -92,6 +92,7 @@ Rails.application.routes.draw do
         patch 'update_status'
       end
     end
+    patch "/events/:id", to:"events#update",as: :event_update
     resources :event_categories do
       member do
         patch 'update_status'

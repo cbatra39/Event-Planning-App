@@ -15,20 +15,12 @@
         
               <div class="card recent-sales overflow-auto">
                 <div class="card-body ">
-<<<<<<< HEAD
-                  <h3  style="margin-top: 10px; font-weight: bold; "><%if @data.email.present?%>
-                                <%= @data.email%>
-                                <%else%>
-                                <%= @data.title%>
-                                <%end%>
-=======
                   <h3  style="margin-top: 10px; font-weight: bold; ">
                   <%if @report.report_type == 1 %>
                       <%= @data.title%>
                   <%else%>
                       <%= @data.email%>
                   <%end%>
->>>>>>> origin/development
                   </h3>
                   
                                         

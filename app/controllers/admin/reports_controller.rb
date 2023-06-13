@@ -63,17 +63,10 @@ class Admin::ReportsController < ApplicationController
         @report = Report.find_by(id:params[:id])
         if @report.report_type == 1
             @data = Event.find_by(id:@report.reported_id)
-<<<<<<< HEAD
-        else
-            @data =User.find_by(id:@report.reported_id)
-        end
-    end
-=======
         elsif @report.report_type == 2
             @data = User.find_by(id:@report.reported_id)
         end
     end
 
 
->>>>>>> origin/development
 end

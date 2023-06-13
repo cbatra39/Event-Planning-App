@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_133036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -166,15 +166,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_072210) do
     t.string "device_token"
     t.string "device_type"
     t.integer "status"
-<<<<<<< HEAD
-=======
     t.integer "is_verified", default: 2
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
->>>>>>> origin/development
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
